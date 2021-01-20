@@ -8,6 +8,6 @@ app.get("/api",(req,res) =>{
     });
 });
 
-app.listen(
-
-);
+app.listen(3000, () => {
+    console.log("Server up and running");
+});
