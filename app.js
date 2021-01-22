@@ -1,6 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 
+// endpoint
 app.get("/api",(req,res) =>{
     res.json({
         success: 1,
@@ -8,6 +10,6 @@ app.get("/api",(req,res) =>{
     });
 });
 
-app.listen(3000, () => {
-    console.log("Server up and running");
+app.listen(process.env.APP_PORT, () => {
+    console.log("Server up and running on PORT: ", process.env.APP_PORT);
 });
