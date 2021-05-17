@@ -6,8 +6,8 @@ module.exports = {
     // get data and callBack function as a parameter
     create:(data, callBack) => {
         pool.query(
-            `INSERT INTO REGISTRATION(firstName, lastName, gender, email, password, number)
-            values(?,?,?,?,?,?)`,
+            `INSERT INTO REGISTRATION(firstName, lastName, gender, email, password, number, role)
+            values(?,?,?,?,?,?,?)`,
         [
             data.first_name,
             data.last_name,
@@ -15,6 +15,7 @@ module.exports = {
             data.email,
             data.password,
             data.number,
+            data.role
         ],
         (error, results, fields)=>{
             if (error){
@@ -26,7 +27,7 @@ module.exports = {
     },
     getUsers: callBack => {
         pool.query(
-            `select id,firstName,lastName,gender,email,number from registration`,
+            `select id,firstName,lastName,gender,email,number,role from registration`,
             [],
             (error, results, fields) => {
                 if (error){
@@ -38,7 +39,7 @@ module.exports = {
     },
     getUsersByUserId: (id, callBack) => {
         pool.query(
-          `select id,firstName,lastName,gender,email,number from registration where id=?`,
+          `select id,firstName,lastName,gender,email,number,role from registration where id=?`,
           [id],
           (error, results, fields) => {
             if (error) {
@@ -58,7 +59,8 @@ module.exports = {
             data.email,
             data.password,
             data.number,
-            data.id
+            data.id,
+            data.role
         ],
         (error, results, fields)=>{
             if (error){

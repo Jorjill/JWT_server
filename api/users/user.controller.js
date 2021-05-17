@@ -10,6 +10,7 @@ module.exports = {
         // always encrypt password before saving
         const salt = genSaltSync(10);
         body.password = hashSync(body.password, salt);
+
         create(body, (err, results)=>{
             // if error return error json
             if(err){
@@ -110,13 +111,13 @@ module.exports = {
                     message: "Invalid email or password"
                 });
             }
-            const result = compareSync(body.password, results.password);
+            const result = compareSync(body.password, results.password); // get object if passwords match
             if(result){
                 results.password = undefined;
-                const jsontoken = sign({result: results},"qwe1234", {
+                const jsontoken = sign({result: results},"qwe1234", { // if passwords match, generate token
                     expiresIn: "1h"
                 });
-                return res.json({
+                return res.json({   // send json response with jwt
                     success: 1,
                     message: "login successfully",
                     token: jsontoken
